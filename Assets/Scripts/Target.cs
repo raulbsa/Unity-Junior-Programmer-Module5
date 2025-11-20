@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Target : MonoBehaviour
 {
@@ -47,22 +48,22 @@ public class Target : MonoBehaviour
         Destroy(gameObject);
         if (!gameObject.CompareTag("Bad"))
         {
-            gameManager.GameOver();
-        }
+            gameManager.UpdateLives();
+        } 
     }
 
     Vector3 RandomForce()
     {
-        return Vector3.up * Random.Range(minSpeed, maxSpeed);
+        return Vector3.up * UnityEngine.Random.Range(minSpeed, maxSpeed);
     }
 
     float RandomTorque()
     {
-        return Random.Range(-maxTorque, maxTorque);
+        return UnityEngine.Random.Range(-maxTorque, maxTorque);
     }
 
     Vector3 RandomSpawnPos()
     {
-        return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
+        return new Vector3(UnityEngine.Random.Range(-xRange, xRange), ySpawnPos);
     }
 }

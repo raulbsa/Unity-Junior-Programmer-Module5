@@ -8,22 +8,38 @@ public class GameManager : MonoBehaviour
 {
     public List<GameObject> targets;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI livesText;
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
     public GameObject titleScreen;
     public bool isGameActive;
     private int score;
+    private int lives;
     private float spawnRate = 1.0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-  
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void UpdateLives()
+    {
+        if (lives <= 4 && lives > 0)
+        {
+            lives--;
+        }
+        livesText.text = "Lives: " + lives;
+        if (lives <= 0)
+        {
+            GameOver();
+        }
     }
 
     IEnumerator SpawnTarget()
@@ -58,10 +74,12 @@ public class GameManager : MonoBehaviour
     {
         isGameActive = true;
         score = 0;
+        lives = 4;
         spawnRate /= difficulty;
 
         StartCoroutine(SpawnTarget());
         UpdateScore(0);
+        UpdateLives();
         titleScreen.gameObject.SetActive(false);
     }
 }
